@@ -8,7 +8,10 @@ COPY *.csproj ./IdentityServer/GenSenApps.IdentityServer/
 COPY *.csproj ./Shared/GenSenWebApps.Shared/
 RUN dotnet restore "IdentityServer/GenSenApps.IdentityServer/GenSenApps.IdentityServer.csproj"
 COPY . .
+RUN dotnet build "GenSenApps.IdentityServer.csproj" -c Release -o /app/build
+FROM build AS publish
 RUN dotnet publish "GenSenApps.IdentityServer.csproj" -c Release -o /app/publish /p:UseAppHost=false
+FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "GenSenApps.IdentityServer.dll"]
