@@ -7,8 +7,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["IdentityServer/GenSenApps.IdentityServer/GenSenApps.IdentityServer.csproj", "IdentityServer/GenSenApps.IdentityServer/"]
-COPY ["Shared/GenSenWebApps.Shared/GenSenWebApps.Shared.csproj", "Shared/GenSenWebApps.Shared/"]
+COPY *.csproj ./IdentityServer/GenSenApps.IdentityServer/
+COPY *.csproj ./Shared/GenSenWebApps.Shared/
 RUN dotnet restore "IdentityServer/GenSenApps.IdentityServer/GenSenApps.IdentityServer.csproj"
 COPY . .
 WORKDIR "/src/IdentityServer/GenSenApps.IdentityServer"
